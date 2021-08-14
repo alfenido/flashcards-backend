@@ -159,5 +159,5 @@ app.get('/decks/:deck_id/play', verifyDeck, (request, response) => {
     response.json(sortedArray);
 })
 
-app.listen(3333);
+app.listen(process.env.PORT || 3333);
 console.log('Running on port http://localhost:3333/');
