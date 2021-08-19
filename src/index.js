@@ -1,11 +1,13 @@
 const express = require('express');
 const { v4: uuidv4 } = require('uuid');
 const Chance = require('chance')
-
+const cors = require('cors');
 
 
 const app = express();
+app.use(cors());
 app.use(express.json());
+
 
 const decks = [
     // Um exemplo só pra debugar e ter o id fixo pras requisições rest.
@@ -142,20 +144,19 @@ app.get('/decks/:deck_id/play', verifyDeck, (request, response) => {
 
 
 
-    const anotherCards = JSON.parse(JSON.stringify(cards));
-    
-    anotherCards.map( (_, i, arrCopy) => {
+    //const cardsCopy = JSON.parse(JSON.stringify(cards));
 
+    let cardsCopy = [...cards];
 
-        var rand = i + ( Math.floor( Math.random()*0.99 * (arrCopy.length - i) ) );
-        [arrCopy[rand], arrCopy[i]] = [arrCopy[i], arrCopy[rand]]
-        
-  
-            return arrCopy[i]
-        
-        
+    let myCard = cardsCopy.find((c)=>{
+        return c.id == 'a399e053-a3df-4768-b0d6-5335ae7a61fd'
+    });
+
+    myCard.aswer = 'teste';
+
+    console.log(cards);
+
     
-    })
     response.json(sortedArray);
 })
 
